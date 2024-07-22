@@ -1,6 +1,7 @@
 #include "../headers/random_value.h"
 
 #include <iostream>
+#include <string>
 
 int main(int argc, char * argv[]) {
 
@@ -8,10 +9,12 @@ int main(int argc, char * argv[]) {
     const int target_value = random_value(max_value);
 	int current_value = 0;
 	bool not_win = true;
+    std::string name = "";
 
-    std::cout << "Target value: " << target_value << std::endl;
+    // std::cout << "Target value: " << target_value << std::endl;
 
-/* Enter your name*/
+    std::cout << "Enter your name:" << std::endl;
+    std::cin >> name;
 
 	printf("Enter your guess between 1 and %d:\n", max_value);
 
