@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(otus-03-homework)
 
 add_executable(
-    guess src/main.cpp
+    guess app/src/main.cpp
 )
 
 set_target_properties(
