@@ -1,4 +1,5 @@
 #include "../headers/random_value.h"
+#include "../headers/save_to_file.h"
 
 #include <iostream>
 #include <string>
@@ -9,23 +10,31 @@ int main(int argc, char * argv[]) {
     const int target_value = random_value(max_value);
 	int current_value = 0;
 	bool not_win = true;
-    std::string name = "";
+    const std::string scores_filename = "../../resources/high_scores.txt";
+    std::string user_name = "";
+    int attempts_count = 0;
 
-    // std::cout << "Target value: " << target_value << std::endl;
+    // Ask about name
+    std::cout << "Hi! Enter your name:" << std::endl;
+    std::cin >> user_name;
 
-    std::cout << "Enter your name:" << std::endl;
-    std::cin >> name;
-
-	printf("Enter your guess between 1 and %d:\n", max_value);
+	printf("Enter your guess number between 1 and %d:\n", max_value);
 
 	do {
+
         do {
 		    std::cin >> current_value;
             if (current_value < 1 || current_value > max_value) {
-                printf("Attention, between 1 and %d:\n", max_value);
-            } else break;
+                std::cout << "\033[" << 31 << "m" << "More attentively! " << "\033[0m";
+                std::cout << "Number between 1 and " << max_value << ":" << std::endl;
+            } 
+            else {
+                attempts_count++;
+                break;
+            }
 
         } while(true);
+
 
 		if (current_value < target_value) {
 			std::cout << "less than target value" << std::endl;
@@ -40,5 +49,9 @@ int main(int argc, char * argv[]) {
 
 	} while(true);
 
-    return EXIT_SUCCESS;
+    save_to_file(user_name, attempts_count, scores_filename);
+
+
+    return 0;
+
 }
