@@ -6,7 +6,8 @@ add_executable(
     guess_the_number 
     app/src/main.cpp
     app/src/random_value.cpp
-    app/src/save_to_file.cpp
+    app/src/save_scores.cpp
+    app/src/print_scores.cpp
 )
 
 set_target_properties(

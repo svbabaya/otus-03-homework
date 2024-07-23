@@ -1,5 +1,6 @@
 #include "../headers/random_value.h"
-#include "../headers/save_to_file.h"
+#include "../headers/save_scores.h"
+#include "../headers/print_scores.h"
 
 #include <iostream>
 #include <string>
@@ -52,13 +53,15 @@ int main(int argc, char * argv[]) {
 			std::cout << "greater than target value" << std::endl;
 		}
 		else {
-			std::cout << "you win!" << std::endl;
+			std::cout << "you win! attempts " << attempts_count << std::endl;
 			break;
 		}
 
 	} while(true);
 
-    save_to_file(user_name, attempts_count, fscores);
+    save_scores(user_name, attempts_count, fscores);
+
+    print_scores(fscores);
 
 
     return 0;
