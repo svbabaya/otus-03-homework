@@ -8,7 +8,14 @@
 
 int main(int argc, char * argv[]) {
 
-    const int max_value = 100;
+    int max_value;
+    if (argc >= 2) {
+        std::string key = argv[1];
+        max_value = atoi(argv[2]);
+    } else {
+        max_value = 100;
+    }
+    
     const int target_value = random_value(max_value);
 	int current_value = 0;
 	bool not_win = true;
@@ -47,10 +54,10 @@ int main(int argc, char * argv[]) {
 
 
 		if (current_value < target_value) {
-			std::cout << "less than target value" << std::endl;
+			std::cout << "greater than " << current_value << std::endl;
 		}
 		else if (current_value > target_value) {
-			std::cout << "greater than target value" << std::endl;
+			std::cout << "less than " << current_value << std::endl;
 		}
 		else {
 			std::cout << "you win! attempts " << attempts_count << std::endl;
