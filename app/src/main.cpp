@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 int main(int argc, char * argv[]) {
 
@@ -10,7 +11,15 @@ int main(int argc, char * argv[]) {
     const int target_value = random_value(max_value);
 	int current_value = 0;
 	bool not_win = true;
-    const std::string scores_filename = "../../resources/high_scores.txt";
+
+    const std::string scores_filename = "resources/high_scores.txt";
+    std::fstream fscores{scores_filename, std::ios_base::in | std::ios_base::out | std::ios_base::app};
+
+    if(!fscores.is_open()) {
+        std::cout << "Failed to open file: " << scores_filename << "!" << std::endl;
+        return -1;
+    }
+
     std::string user_name = "";
     int attempts_count = 0;
 
@@ -49,7 +58,7 @@ int main(int argc, char * argv[]) {
 
 	} while(true);
 
-    save_to_file(user_name, attempts_count, scores_filename);
+    save_to_file(user_name, attempts_count, fscores);
 
 
     return 0;
