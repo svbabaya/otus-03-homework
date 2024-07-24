@@ -8,14 +8,38 @@
 
 int main(int argc, char * argv[]) {
 
+    // Check parametres
     int max_value;
-    if (argc >= 2) {
-        std::string key = argv[1];
-        max_value = atoi(argv[2]);
-    } else {
+    if (argc > 1) {
+        std::string max_key{argv[1]};
+
+        if (max_key == "-max") {
+			
+			if (argc < 3) {
+				std::cout << "Wrong usage! The argument '-max' requires some value!" << std::endl;
+				return -1;
+			}
+
+			max_value = std::stoi(argv[2]);
+
+        } else if (max_key == "-level") {
+
+            // To Do
+        } else if (max_key == "-table") {
+
+            // To Do
+        } else {
+
+            std::cout << "Wrong arguments!" << std::endl;
+			return -1;
+        }
+
+    } else 
+    {
         max_value = 100;
     }
     
+
     const int target_value = random_value(max_value);
 	int current_value = 0;
 	bool not_win = true;
