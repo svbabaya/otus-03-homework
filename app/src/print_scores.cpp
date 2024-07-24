@@ -3,9 +3,14 @@
 #include <fstream>
 #include <iostream>
 
-bool print_scores(std::fstream &fscores) {
+bool print_scores(std::string scores_filename) {
 
-    fscores.seekg(0);
+    std::fstream fscores{scores_filename, std::ios_base::in};
+        if(!fscores.is_open()) {
+            std::cout << "Failed to open file: " << scores_filename << "!" << std::endl;
+            return false;
+        }
+
     std::cout << "Scores table:" << std::endl;
     
     // std::string str;
@@ -29,7 +34,9 @@ bool print_scores(std::fstream &fscores) {
         std::cout << username << '\t' << score << std::endl;
     }
     std::cout << std::endl;
+    
     fscores.close();
+
     return true;
     
 } 

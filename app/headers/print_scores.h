@@ -1,5 +1,5 @@
 #pragma once
 
-#include <fstream>
+#include <string>
 
-bool print_scores(std::fstream &fscores);
+bool print_scores(std::string scores_filename);

@@ -8,26 +8,31 @@
 
 int main(int argc, char * argv[]) {
 
+    const std::string scores_filename = "resources/high_scores.txt";
+
     // Check parametres
     int max_value;
     if (argc > 1) {
-        std::string max_key{argv[1]};
+        std::string key{argv[1]};
 
-        if (max_key == "-max") {
+        if (key == "-max") {
 			
 			if (argc < 3) {
 				std::cout << "Wrong usage! The argument '-max' requires some value!" << std::endl;
 				return -1;
 			}
-
 			max_value = std::stoi(argv[2]);
 
-        } else if (max_key == "-level") {
+        } else if (key == "-level") {
 
             // To Do
-        } else if (max_key == "-table") {
+        } else if (key == "-table") {
 
-            // To Do
+            if(!print_scores(scores_filename)) {
+                return -1;
+            }
+            return 0;
+
         } else {
 
             std::cout << "Wrong arguments!" << std::endl;
@@ -39,18 +44,9 @@ int main(int argc, char * argv[]) {
         max_value = 100;
     }
     
-
     const int target_value = random_value(max_value);
 	int current_value = 0;
 	bool not_win = true;
-
-    const std::string scores_filename = "resources/high_scores.txt";
-    std::fstream fscores{scores_filename, std::ios_base::in | std::ios_base::out | std::ios_base::app};
-
-    if(!fscores.is_open()) {
-        std::cout << "Failed to open file: " << scores_filename << "!" << std::endl;
-        return -1;
-    }
 
     std::string user_name = "";
     int attempts_count = 0;
@@ -90,10 +86,15 @@ int main(int argc, char * argv[]) {
 
 	} while(true);
 
-    save_scores(user_name, attempts_count, fscores);
+    if(!save_scores(user_name, attempts_count, scores_filename)) {
 
-    print_scores(fscores);
+        return -1;
+    }
 
+    if(!print_scores(scores_filename)) {
+
+        return -1;
+    };
 
     return 0;
 
