@@ -21,11 +21,33 @@ int main(int argc, char * argv[]) {
 				std::cout << "Wrong usage! The argument '-max' requires some value!" << std::endl;
 				return -1;
 			}
-			max_value = std::stoi(argv[2]);
+			max_value = std::atoi(argv[2]);
 
         } else if (key == "-level") {
 
-            // To Do
+            if (argc < 3) {
+				std::cout << "Wrong usage! The argument '-level' requires value 1, 2 or 3!" << std::endl;
+				return -1;
+
+			} else {
+
+                switch (atoi(argv[2]))
+                {
+                case 1:
+                    max_value = 10;
+                    break;
+                case 2:
+                    max_value = 50;
+                    break;
+                case 3:
+                    max_value = 100;
+                    break;    
+                default:
+                    std::cout << "Wrong usage! The argument '-level' requires value 1, 2 or 3!" << std::endl;
+				    return -1;
+                }
+            }
+
         } else if (key == "-table") {
 
             if(!print_scores(scores_filename)) {
