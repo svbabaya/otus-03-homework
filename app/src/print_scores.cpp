@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+// #include <vector>
 
 bool print_scores(std::string scores_filename) {
 
@@ -13,30 +14,61 @@ bool print_scores(std::string scores_filename) {
 
     std::cout << "Scores table:" << std::endl;
     
+    // Whole table output var 1
     // std::string str;
     // while (!fscores.eof()) {
     //     std::getline(fscores, str);
     //     std::cout << str << std::endl;
     // }
 
-    std::string username;
-    int score;
+    // Whole table output var 2
+    // std::string username;
+    // int score;
+    // while (true) {
+	// 	fscores >> username;
+	// 	fscores >> score;
+	// 	fscores.ignore();
+	// 	if (fscores.fail()) {
+	// 		break;
+	// 	}
+    //     std::cout << username << '\t' << score << std::endl;
+    // }
 
-    while (true) {
-		fscores >> username;
-		fscores >> score;
-		fscores.ignore();
-
-		if (fscores.fail()) {
-			break;
-		}
-
-        std::cout << username << '\t' << score << std::endl;
+    std::string line;
+    int line_count = 0;
+    while (getline(fscores, line)) {
+        line_count++;
     }
-    std::cout << std::endl;
-    
-    fscores.close();
 
+    // fscores.seekg(0); Doesn't work
+    fscores.close();
+    fscores.open(scores_filename);
+
+    // std::vector<std::string> users;
+    // std::vector<std::string> scores;
+    std::string users[line_count];
+    int scores[line_count];
+    // std::string user;
+    // std::string score;
+    // for (int i = 0; i < line_count; i++) {
+    //     fscores >> user;
+    //     users.push_back(user);
+
+    //     fscores >> score;
+    //     scores.push_back(score);
+
+    //     fscores.ignore();
+    // }
+
+    for (int i = 0; i < line_count; i++) {
+
+        fscores >> users[i];
+        fscores >> scores[i];
+        fscores.ignore();
+    }
+
+    std::cout << std::endl;
+    fscores.close();
     return true;
     
 } 
