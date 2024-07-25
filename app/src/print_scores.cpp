@@ -35,21 +35,6 @@ bool print_scores(std::string scores_filename) {
     //     std::cout << username << '\t' << score << std::endl;
     // }
 
-
-
-    // std::string line;
-    // int line_count = 0;
-    // while (getline(fscores, line)) {
-    //     line_count++;
-    // }
-
-    // fscores.seekg(0); Doesn't work
-    // fscores.close();
-    // fscores.open(scores_filename);
-
-    // std::string users[line_count];
-    // int scores[line_count];
-
     // Make two vectors
     std::vector<std::string> users;
     std::vector<int> scores;
@@ -62,13 +47,6 @@ bool print_scores(std::string scores_filename) {
         scores.push_back(score_tmp);
         fscores.ignore();
     }
-
-    // for (int i = 0; i < line_count; i++) {
-    //     fscores >> users[i];
-    //     fscores >> scores[i];
-    //     fscores.ignore();
-    // }
-
 
     // Make set of users
     std::vector<std::string> uniques;
@@ -98,14 +76,7 @@ bool print_scores(std::string scores_filename) {
         hscores.push_back(min);
     }
 
-    // for (std::string s : uniques) {
-    //     std::cout << s << std::endl;
-    // }
-
-    // for (int i : hscores) {
-    //     std::cout << i << std::endl;
-    // }
-
+    // Print high scores
     for (int i = 0; i < uniques.size(); i++) {
         std::cout << uniques[i] << " " << hscores[i] << std::endl;
     }
