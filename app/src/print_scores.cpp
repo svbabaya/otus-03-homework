@@ -1,8 +1,9 @@
 #include "../headers/print_scores.h"
+#include "../headers/find.h"
 
 #include <fstream>
 #include <iostream>
-// #include <vector>
+#include <vector>
 
 bool print_scores(std::string scores_filename) {
 
@@ -12,7 +13,7 @@ bool print_scores(std::string scores_filename) {
             return false;
         }
 
-    std::cout << "Scores table:" << std::endl;
+    std::cout << "High scores table:" << std::endl;
     
     // Whole table output var 1
     // std::string str;
@@ -34,37 +35,79 @@ bool print_scores(std::string scores_filename) {
     //     std::cout << username << '\t' << score << std::endl;
     // }
 
-    std::string line;
-    int line_count = 0;
-    while (getline(fscores, line)) {
-        line_count++;
-    }
+
+
+    // std::string line;
+    // int line_count = 0;
+    // while (getline(fscores, line)) {
+    //     line_count++;
+    // }
 
     // fscores.seekg(0); Doesn't work
-    fscores.close();
-    fscores.open(scores_filename);
+    // fscores.close();
+    // fscores.open(scores_filename);
 
-    // std::vector<std::string> users;
-    // std::vector<std::string> scores;
-    std::string users[line_count];
-    int scores[line_count];
-    // std::string user;
-    // std::string score;
+    // std::string users[line_count];
+    // int scores[line_count];
+
+    // Make two vectors
+    std::vector<std::string> users;
+    std::vector<int> scores;
+    std::string user_tmp;
+    int score_tmp;
+    while (!fscores.eof()) {
+        fscores >> user_tmp;
+        users.push_back(user_tmp);
+        fscores >> score_tmp;
+        scores.push_back(score_tmp);
+        fscores.ignore();
+    }
+
     // for (int i = 0; i < line_count; i++) {
-    //     fscores >> user;
-    //     users.push_back(user);
-
-    //     fscores >> score;
-    //     scores.push_back(score);
-
+    //     fscores >> users[i];
+    //     fscores >> scores[i];
     //     fscores.ignore();
     // }
 
-    for (int i = 0; i < line_count; i++) {
 
-        fscores >> users[i];
-        fscores >> scores[i];
-        fscores.ignore();
+    // Make set of users
+    std::vector<std::string> uniques;
+    for (std::string s : users) {
+        if (!find(uniques, s)) {
+            uniques.push_back(s);
+        }
+    }
+
+    // Choose the bests scores
+    std::vector<int> hscores;
+    int min = 0;
+    for (std::string uq : uniques) {
+
+        for (int i = 0; i < users.size(); i++) {
+            if (uq == users[i]) {
+                min = scores[i];
+            }
+        }
+
+        for (int i = 0; i < users.size(); i++) {
+            if (uq == users[i] && scores[i] < min) {
+                min = scores[i];
+            }
+        }
+
+        hscores.push_back(min);
+    }
+
+    // for (std::string s : uniques) {
+    //     std::cout << s << std::endl;
+    // }
+
+    // for (int i : hscores) {
+    //     std::cout << i << std::endl;
+    // }
+
+    for (int i = 0; i < uniques.size(); i++) {
+        std::cout << uniques[i] << " " << hscores[i] << std::endl;
     }
 
     std::cout << std::endl;

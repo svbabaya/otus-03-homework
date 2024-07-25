@@ -8,6 +8,7 @@ add_executable(
     app/src/random_value.cpp
     app/src/save_scores.cpp
     app/src/print_scores.cpp
+    app/src/find.cpp
 )
 
 set_target_properties(
